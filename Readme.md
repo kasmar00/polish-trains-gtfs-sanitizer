@@ -56,6 +56,10 @@ Currently it contains:
     - issues:
         - PKM routes as an extra (non standard) field
         - vehicle type in trip short name
+        - routes.txt misses agency_id collumn
+        - some trips have two PKMs (ex. `52`) - could either be split in Poznań Główny (and joined with a block) or saved as the destination PKM (ex. `2`). This repository does the latter.
+        - BUS (ZKA) is not separated
+        - traktion type is in trip_short_name
 1. Łódzka Kolej Aglomeracyjna
     - url: https://kolej-lka.pl/pliki/pn0e6eg45qcl4hd5/gtfs-2024-2025/zip/
     - source: official
