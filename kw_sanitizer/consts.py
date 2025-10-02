@@ -17,7 +17,7 @@ GTFS_HEADERS = {
         "stop_lon",
         "platform_code",
         "parent_station",
-        "location_type"
+        "location_type",
     ),
     "routes.txt": (
         "agency_id",
@@ -43,7 +43,6 @@ GTFS_HEADERS = {
         "stop_id",
         "arrival_time",
         "departure_time",
-        "fare_dist_m",
     ),
     "transfers.txt": (
         "from_stop_id",

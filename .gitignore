@@ -1,5 +1,4 @@
 feeds-zip/*
-!*/.gitkeep
 
 .venv
 *.pyc
@@ -8,3 +7,5 @@ _impuls_workspace
 out/*
 
 .vscode
+
+!*/.gitkeep
