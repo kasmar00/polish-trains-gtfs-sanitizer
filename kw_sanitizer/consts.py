@@ -1,6 +1,3 @@
-from zoneinfo import ZoneInfo
-
-
 GTFS_HEADERS = {
     "agency.txt": (
         "agency_id",
@@ -65,5 +62,3 @@ GTFS_HEADERS = {
         "attribution_url",
     ),
 }
-
-POLAND_TZ = ZoneInfo("Europe/Warsaw")

@@ -1,14 +1,22 @@
+from zoneinfo import ZoneInfo
 import impuls
-from kw_sanitizer.consts import POLAND_TZ
+
+POLAND_TZ = ZoneInfo("Europe/Warsaw")
 
 
 class CreateFeedAttributions(impuls.Task):
+    def __init__(self, operator_name, operator_url, feed_resource_name):
+        self.name = (operator_name,)
+        self.url = operator_url
+        self.feed = feed_resource_name
+        super().__init__()
+
     def execute(self, r):
         with r.db.transaction():
-            source_timestamp = r.resources["kw.zip"].last_modified.astimezone(
+            source_timestamp = r.resources[self.feed].last_modified.astimezone(
                 POLAND_TZ
             )
-            r.db.create(
+            r.db.update(
                 impuls.model.FeedInfo(
                     publisher_name="Marcin Kasznia",
                     publisher_url="https://gtfs.kasznia.net",
@@ -27,9 +35,9 @@ class CreateFeedAttributions(impuls.Task):
                     ),
                     impuls.model.Attribution(
                         id=2,
-                        organization_name="Koleje Wielkopolskie",
+                        organization_name=self.name,
                         is_operator=True,
-                        url="https://koleje-wielkopolskie.com.pl/",
+                        url=self.url,
                     ),
                     impuls.model.Attribution(
                         id="3",

@@ -2,9 +2,9 @@ import impuls
 import argparse
 
 from common.add_platforms import AddPlatforms
-from kw_sanitizer.attribution import CreateFeedAttributions
+from common.attribution import CreateFeedAttributions
 from kw_sanitizer.bus_legs import ApplyBusPlatforms, SplitBusLegs
-from kw_sanitizer.consts import GTFS_HEADERS, POLAND_TZ
+from kw_sanitizer.consts import GTFS_HEADERS
 from kw_sanitizer.preprocess import FixInitially
 
 
@@ -89,7 +89,11 @@ class KolejeWielkopolskieGTFS(impuls.App):
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
                 CleanTripNames(),
                 ApplyBusPlatforms(),
-                CreateFeedAttributions(),
+                CreateFeedAttributions(
+                    operator_name="Koleje Wielkopolskie",
+                    operator_url="https://koleje-wielkopolskie.com.pl/",
+                    feed_resource_name="kw.zip"
+                ),
                 impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/kw.zip"),
             ],
             resources={

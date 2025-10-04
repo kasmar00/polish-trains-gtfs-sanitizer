@@ -17,9 +17,17 @@ class AddPlatforms(impuls.Task):
             for station in stations:
                 station.name = station.name.strip()
 
-                station_platforms = platforms[station.name]
+                station_platforms = platforms.get(station.name)
+                if not station_platforms:
+                    self.logger.warning(
+                        "Station %s is not in platform list, skipping", station.name
+                    )
+                    continue
 
                 parent_id = f"{station.id}_parent"
+                station.parent_station = parent_id
+
+                # TODO: fix parent, bus and "main" station locations to be from OSM
 
                 ent = [
                     impuls.model.Stop(
@@ -54,4 +62,3 @@ class AddPlatforms(impuls.Task):
                 r.db.create_many(impuls.model.Stop, ent)
 
             r.db.update_many(impuls.model.Stop, stations)
-
