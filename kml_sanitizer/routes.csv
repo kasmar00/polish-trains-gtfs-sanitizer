@@ -1,0 +1,5 @@
+route_id,route_short_name,route_long_name,route_sort_order,route_color,route_text_color
+SKA1,SKA1,SKA1 Wieliczka Rynek-Kopalnia - Kraków Główny - Kraków Lotnisko,10,60B6F0
+SKA2,SKA2,SKA2 Sędziszów - Kraków Główny - Oświęcim,20,D4328A
+SKA3,SKA3,SKA3 Tarnów - Kraków Główny - Oświęcim,30,F2C43B
+K5P LUXTORPEDA,K5P,K5P Kraków Główny - Zakopane,50,E4A3C5

@@ -35,7 +35,6 @@ class SplitBusLegs(impuls.tasks.SplitTripLegs):
             # Fom train to bus
             ret.from_stop_id = ensure_no_suffix(ret.from_stop_id)
             ret.to_stop_id = ensure_bus_suffix(ret.to_stop_id)
-        print(ret)
         return ret
 
 

@@ -1,10 +1,13 @@
 import argparse
+import re
 import impuls
 
 from common.add_platforms import AddPlatforms
 from common.attribution import CreateFeedAttributions
 from kml_sanitizer.apply_platforms_from_headsigns import ApplyPlatformsFromHeadsigns
+from kml_sanitizer.bus_legs import SplitBusLegs
 from kml_sanitizer.normalize_stop_names import NormalizeStopNames
+from kml_sanitizer.normalize_trip_names import NormalizeTripNames
 from kw_sanitizer.consts import GTFS_HEADERS
 
 
@@ -19,9 +22,11 @@ class KolejeMalopolskieGTFS(impuls.App):
                 AddPlatforms(),
                 ApplyPlatformsFromHeadsigns(),
                 impuls.tasks.GenerateTripHeadsign(),
-                impuls.tasks.SplitTripLegs(),  # TODO: handle arrival on bus stop
-                # TODO: normalize trip names
-                # TODO: curate route names
+                SplitBusLegs(
+                    replacement_bus_short_name_pattern=re.compile(".*BUS")
+                ),  # TODO: bus leg arrives at 
+                NormalizeTripNames(),
+                impuls.tasks.ModifyRoutesFromCSV("routes.csv"),  # TODO: continue
                 CreateFeedAttributions(
                     operator_name="Koleje Małopolskie",
                     operator_url="https://kolejemalopolskie.com.pl/",
@@ -33,6 +38,7 @@ class KolejeMalopolskieGTFS(impuls.App):
                 "kml.zip": impuls.HTTPResource.get(
                     "https://kolejemalopolskie.com.pl/rozklady_jazdy/kml-ska-gtfs.zip"
                 ),
+                "routes.csv": impuls.LocalResource("kml_sanitizer/routes.csv"),
                 "platforms.json": impuls.HTTPResource.get(
                     "https://kasmar00.github.io/osm-plk-platform-validator/platforms-list.json"
                 ),
