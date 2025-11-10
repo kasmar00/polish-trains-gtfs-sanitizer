@@ -44,7 +44,7 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                 impuls.tasks.GenerateTripHeadsign(),
                 impuls.tasks.RemoveUnusedEntities(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
-                impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka.zip"),
+                impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_bus.zip"),
             ],
             resources={
                 "lka.zip": impuls.HTTPResource.get(
