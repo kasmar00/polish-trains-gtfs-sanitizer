@@ -1,0 +1,37 @@
+route_id,route_short_name,route_long_name
+1700001_1700007,ŁA7,Rokiciny Dworzec PKP - Będków Kościół
+1700001_1700004,ŁA7,Rokiciny Dworzec PKP - Łaznów OSP
+1700007_1700001,ŁA7,Będków Kościół - Rokiciny Dworzec PKP
+1700004_1700001,ŁA7,Łaznów OSP - Rokiciny Dworzec PKP
+1200001_1200023,ŁA2,Wola Rakowa Główna - Bedoń Kościół
+1200023_1200001,ŁA2,Bedoń Kościół - Wola Rakowa Główna
+1600044_1600042,ŁA6,Leźnica Wielka (Osiedle) - Ozorków Kolejowa  Dw. PKP Ozorków
+1600042_1600044,ŁA6,Ozorków Kolejowa  Dw. PKP Ozorków - Leźnica Wielka (Osiedle)
+1600057_1600042,ŁA6,Dalików Kościół - Ozorków Kolejowa  Dw. PKP Ozorków
+1600042_1600057,ŁA6,Ozorków Kolejowa  Dw. PKP Ozorków - Dalików Kościół
+1100028_1100001,ŁA1,Zelów Piotrkowska ORLEN - Łask ul. Kolejowa (dworzec PKP)
+1100001_1100091,ŁA1,Łask ul. Kolejowa (dworzec PKP) - Szczerców Pl.Św.Floriana
+1100001_1100027,ŁA1,Łask ul. Kolejowa (dworzec PKP) - Zelów Piotrkowska ORLEN
+1100091_1100001,ŁA1,Szczerców Pl.Św.Floriana - Łask ul. Kolejowa (dworzec PKP)
+1300001_1300016,ŁA3,Brzeziny Głowackiego - Andrespol Centrum Handlowe
+1300001_1300040,ŁA3,Brzeziny Głowackiego - Wola Rakowa Szkoła
+1300016_1300001,ŁA3,Andrespol Centrum Handlowe - Brzeziny Głowackiego
+1300040_1300001,ŁA3,Wola Rakowa Szkoła - Brzeziny Głowackiego
+1500034_1500001,ŁA5,Będzelin OSP - Budziszewice Kościół
+1500001_1500034,ŁA5,Budziszewice Kościół - Będzelin OSP
+1800001_1800015,ŁA8,Rawa Maz. Dworzec Autobusowy - Rogów Dworzec PKP
+1800015_1800001,ŁA8,Rogów Dworzec PKP - Rawa Maz. Dworzec Autobusowy
+1900001_1900013,ŁA9,Działoszyn Plac Wolności - Biała PKP
+1900001_1900032,ŁA9,Działoszyn Plac Wolności - Rząśnia Rondo
+1900013_1900001,ŁA9,Biała PKP - Działoszyn Plac Wolności
+1900032_1900001,ŁA9,Rząśnia Rondo - Działoszyn Plac Wolności
+11000001_11000015,ŁA10,Łaznów OSP - Gałków Mały Dworzec PKP
+11000001_11000035,ŁA10,Łaznów OSP - Gałkówek Dworzec PKP
+11000015_11000030,ŁA10,Gałków Mały Dworzec PKP - Łaznów OSP
+11000035_11000030,ŁA10,Gałkówek Dworzec PKP - Łaznów OSP
+11100001_1700007,ŁA11,Rydzynki Wczasowa/Komarowa - Będków Kościół
+1700007_11100001,ŁA11,Będków Kościół - Rydzynki Wczasowa/Komarowa
+12100001_12100013,ŁA12,Buków Świetlica - Skrzynki PKP
+12100013_12100001,ŁA12,Skrzynki PKP - Buków Świetlica
+13100001_13100033,ŁA13,Zaosie Świetlica - Tomaszów Mazowiecki Dworzec PKP
+13100033_13100001,ŁA13,Tomaszów Mazowiecki Dworzec PKP - Zaosie Świetlica

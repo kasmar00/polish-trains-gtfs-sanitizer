@@ -5,8 +5,8 @@ POLAND_TZ = ZoneInfo("Europe/Warsaw")
 
 
 class CreateFeedAttributions(impuls.Task):
-    def __init__(self, operator_name, operator_url, feed_resource_name):
-        self.name = (operator_name,)
+    def __init__(self, operator_name: str, operator_url: str, feed_resource_name: str):
+        self.op_name = operator_name
         self.url = operator_url
         self.feed = feed_resource_name
         super().__init__()
@@ -16,6 +16,15 @@ class CreateFeedAttributions(impuls.Task):
             source_timestamp = r.resources[self.feed].last_modified.astimezone(
                 POLAND_TZ
             )
+            if len(r.db.retrieve_all(impuls.model.FeedInfo).all()) == 0:
+                r.db.create(
+                    impuls.model.FeedInfo(
+                        publisher_name="",
+                        publisher_url="",
+                        lang="pl",
+                    )
+                )
+            
             r.db.update(
                 impuls.model.FeedInfo(
                     publisher_name="Marcin Kasznia",
@@ -28,14 +37,14 @@ class CreateFeedAttributions(impuls.Task):
                 impuls.model.Attribution,
                 [
                     impuls.model.Attribution(
-                        id=1,
+                        id="1",
                         organization_name="Platform locations © OpenStreetMap contributors under ODbL",
                         is_producer=True,
                         url="https://openstreetmap.org/copyright",
                     ),
                     impuls.model.Attribution(
-                        id=2,
-                        organization_name=self.name,
+                        id="2",
+                        organization_name=self.op_name,
                         is_operator=True,
                         url=self.url,
                     ),

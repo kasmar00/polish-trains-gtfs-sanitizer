@@ -1,4 +1,7 @@
-GTFS_HEADERS = {
+from typing import Dict, Tuple
+
+
+GTFS_HEADERS: Dict[str, Tuple[str, ...]] = {
     "agency.txt": (
         "agency_id",
         "agency_name",
@@ -15,6 +18,7 @@ GTFS_HEADERS = {
         "platform_code",
         "parent_station",
         "location_type",
+        "stop_code",
     ),
     "routes.txt": (
         "agency_id",
@@ -60,5 +64,17 @@ GTFS_HEADERS = {
         "is_producer",
         "is_operator",
         "attribution_url",
+    ),
+    "calendar.txt": (
+        "service_id",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+        "start_date",
+        "end_date"
     ),
 }
