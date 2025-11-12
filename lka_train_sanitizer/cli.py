@@ -39,8 +39,6 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                     operator_url="https://lka.lodzkie.pl/",
                     feed_resource_name="lka.zip",
                 ),
-                impuls.tasks.ExecuteSQL("Remove Headsigns", "UPDATE trips SET headsign = '' "),
-                impuls.tasks.GenerateTripHeadsign(),
                 impuls.tasks.RemoveUnusedEntities(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
                 impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_train.zip"),
