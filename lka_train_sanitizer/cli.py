@@ -14,12 +14,12 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
             tasks=[
                 impuls.tasks.LoadGTFS("lka.zip", extra_fields=True),
                 impuls.tasks.ExecuteSQL(
-                    "Remove non-bus routes",
+                    "Remove non-train routes",
                     """
                     DELETE FROM routes
-                    WHERE type NOT LIKE 3;
+                    WHERE type NOT LIKE 2;
                     """,
-                ),
+                ), #TODO: Do someting with ZKA
                 impuls.tasks.ExecuteSQL(
                     "Set agency id to LKA",
                     """
@@ -39,20 +39,17 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                     operator_url="https://lka.lodzkie.pl/",
                     feed_resource_name="lka.zip",
                 ),
-                impuls.tasks.ModifyStopsFromCSV("stops.csv"),
-                MergeStopsByNameAndCode(),
                 impuls.tasks.ExecuteSQL("Remove Headsigns", "UPDATE trips SET headsign = '' "),
                 impuls.tasks.GenerateTripHeadsign(),
                 impuls.tasks.RemoveUnusedEntities(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
-                impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_bus.zip"),
+                impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_train.zip"),
             ],
             resources={
                 "lka.zip": impuls.HTTPResource.get(
                     "https://kolej-lka.pl/pliki/pn0e6eg45qcl4hd5/gtfs-2024-2025/zip/"
                 ),
-                "routes.csv": impuls.LocalResource("lka_bus_sanitizer/routes.csv"),
-                "stops.csv": impuls.LocalResource("lka_bus_sanitizer/stops.csv"),
+                "routes.csv": impuls.LocalResource("lka_train_sanitizer/routes.csv"),
             },
         )
 
