@@ -47,3 +47,12 @@ class MergeStopsByNameAndCode(impuls.Task):
                     """,
                     duplicate_stop_ids,
                 )
+                if not stop_code.isnumeric():
+                    r.db.raw_execute(
+                        """
+                        UPDATE stops
+                        SET code = ''
+                        WHERE stop_id = ?
+                        """,
+                        (main_stop_id, )
+                    )
