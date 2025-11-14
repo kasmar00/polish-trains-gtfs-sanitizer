@@ -3,7 +3,7 @@ import argparse
 
 from common.attribution import CreateFeedAttributions
 from kw_sanitizer.consts import GTFS_HEADERS
-from lka_bus_sanitizer.merge_stops import MergeStopsByNameAndCode
+from lka_train_sanitizer.bus_replacement import MarkBusReplacementAsBus
 
 
 class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
@@ -19,7 +19,7 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                     DELETE FROM routes
                     WHERE type NOT LIKE 2;
                     """,
-                ), #TODO: Do someting with ZKA
+                ),
                 impuls.tasks.ExecuteSQL(
                     "Set agency id to LKA",
                     """
@@ -39,6 +39,7 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                     operator_url="https://lka.lodzkie.pl/",
                     feed_resource_name="lka.zip",
                 ),
+                MarkBusReplacementAsBus(),
                 impuls.tasks.RemoveUnusedEntities(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
                 impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_train.zip"),
