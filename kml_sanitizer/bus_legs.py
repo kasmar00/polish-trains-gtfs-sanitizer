@@ -1,20 +1,21 @@
 import impuls
 import re
 
+
 class SplitBusLegs(impuls.tasks.SplitTripLegs):
-    def __init__(self, replacement_bus_short_name_pattern = None):
+    def __init__(self, replacement_bus_short_name_pattern=None):
         super().__init__(replacement_bus_short_name_pattern=re.compile(".*BUS"))
-    
+
     def arrival_only(self, stop_time, previous_data):
         return apply_stop_suffix_if_bus(super().arrival_only(stop_time, previous_data))
-    
+
     def departure_only(self, stop_time, current_data):
         st = super().departure_only(stop_time, current_data)
-        if (current_data):
+        if current_data:
             return apply_stop_suffix_if_bus(st)
         else:
             return st
-    
+
     def get_transfer(self, trip_a, trip_b, transfer_stop_id):
         """
         This "guesses" which side of the transfer was bus part and corrects stop_id of that part
@@ -35,6 +36,7 @@ class SplitBusLegs(impuls.tasks.SplitTripLegs):
             ret.to_stop_id = ensure_bus_suffix(ret.to_stop_id)
         return ret
 
+
 def apply_stop_suffix_if_bus(stop_time: impuls.model.StopTime):
     if stop_time.platform == "BUS":
         stop_time.stop_id = ensure_bus_suffix(stop_time.stop_id)
@@ -49,6 +51,7 @@ def ensure_bus_suffix(str) -> str:
 
 def ensure_no_suffix(str) -> str:
     return station_id(str)
+
 
 def station_id(id_with_platform) -> str:
     return id_with_platform.split("_")[0]

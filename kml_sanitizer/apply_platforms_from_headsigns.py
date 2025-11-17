@@ -63,7 +63,7 @@ def match_platform(
 
 def parse_headsign(headsign: str) -> Tuple[int, int]:
     """
-    headsign is formatted as: "peron I, tor 7", "peno maron IV, tor 2"
+    headsign is formatted as: "peron I, tor 7", "peron IV, tor 2" or "BUS"
     """
     if "BUS" in headsign:
         return ("BUS", None)

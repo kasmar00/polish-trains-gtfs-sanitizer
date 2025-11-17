@@ -22,11 +22,10 @@ class KolejeMalopolskieGTFS(impuls.App):
                 AddPlatforms(),
                 ApplyPlatformsFromHeadsigns(),
                 impuls.tasks.GenerateTripHeadsign(),
-                SplitBusLegs(
-                    replacement_bus_short_name_pattern=re.compile(".*BUS")
-                ),  # TODO: bus leg arrives at 
+                SplitBusLegs(replacement_bus_short_name_pattern=re.compile(".*BUS")),
                 NormalizeTripNames(),
-                impuls.tasks.ModifyRoutesFromCSV("routes.csv"),  # TODO: continue
+                impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
+                impuls.tasks.ModifyStopsFromCSV("stops.csv"),
                 CreateFeedAttributions(
                     operator_name="Koleje Małopolskie",
                     operator_url="https://kolejemalopolskie.com.pl/",
@@ -39,6 +38,7 @@ class KolejeMalopolskieGTFS(impuls.App):
                     "https://kolejemalopolskie.com.pl/rozklady_jazdy/kml-ska-gtfs.zip"
                 ),
                 "routes.csv": impuls.LocalResource("kml_sanitizer/routes.csv"),
+                "stops.csv": impuls.LocalResource("kml_sanitizer/stops.csv"),
                 "platforms.json": impuls.HTTPResource.get(
                     "https://kasmar00.github.io/osm-plk-platform-validator/platforms-list.json"
                 ),
