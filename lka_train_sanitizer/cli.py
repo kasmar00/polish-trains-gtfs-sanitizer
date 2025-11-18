@@ -42,6 +42,7 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                 MarkBusReplacementAsBus(),
                 impuls.tasks.RemoveUnusedEntities(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
+                impuls.tasks.ModifyStopsFromCSV("stops.csv"),
                 impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_train.zip"),
             ],
             resources={
@@ -49,6 +50,7 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                     "https://kolej-lka.pl/pliki/pn0e6eg45qcl4hd5/gtfs-2024-2025/zip/"
                 ),
                 "routes.csv": impuls.LocalResource("lka_train_sanitizer/routes.csv"),
+                "stops.csv": impuls.LocalResource("lka_train_sanitizer/stops.csv"),
             },
         )
 
