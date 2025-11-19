@@ -4,6 +4,7 @@ import argparse
 from common.attribution import CreateFeedAttributions
 from kw_sanitizer.consts import GTFS_HEADERS
 from lka_bus_sanitizer.merge_stops import MergeStopsByNameAndCode
+from common.lka_divide import DivideLKARoutes
 
 
 class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
@@ -13,27 +14,7 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
         return impuls.Pipeline(
             tasks=[
                 impuls.tasks.LoadGTFS("lka.zip", extra_fields=True),
-                impuls.tasks.ExecuteSQL(
-                    "Remove non-bus routes",
-                    """
-                    DELETE FROM routes
-                    WHERE type NOT LIKE 3;
-                    """,
-                ),
-                impuls.tasks.ExecuteSQL(
-                    "Set agency id to LKA",
-                    """
-                    UPDATE agencies
-                    SET agency_id = 'LKA'
-                """,
-                ),
-                impuls.tasks.ExecuteSQL(
-                    "Add agency id on routes",
-                    """
-                    UPDATE routes
-                    SET agency_id = 'LKA'
-                """,
-                ),
+                DivideLKARoutes(bus=True, rail_replacement_bus=True),
                 CreateFeedAttributions(
                     operator_name="Łódzka Kolej Aglomeracyjna",
                     operator_url="https://lka.lodzkie.pl/",
@@ -41,7 +22,9 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                 ),
                 impuls.tasks.ModifyStopsFromCSV("stops.csv"),
                 MergeStopsByNameAndCode(),
-                impuls.tasks.ExecuteSQL("Remove Headsigns", "UPDATE trips SET headsign = '' "),
+                impuls.tasks.ExecuteSQL(
+                    "Remove Headsigns", "UPDATE trips SET headsign = '' "
+                ),
                 impuls.tasks.GenerateTripHeadsign(),
                 impuls.tasks.RemoveUnusedEntities(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
