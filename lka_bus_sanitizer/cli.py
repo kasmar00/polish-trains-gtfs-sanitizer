@@ -5,6 +5,7 @@ from common.attribution import CreateFeedAttributions
 from kw_sanitizer.consts import GTFS_HEADERS
 from lka_bus_sanitizer.merge_stops import MergeStopsByNameAndCode
 from common.lka_divide import DivideLKARoutes
+from lka_combiner.cli import LKACombiner
 
 
 class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
@@ -31,9 +32,7 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                 impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_bus.zip"),
             ],
             resources={
-                "lka.zip": impuls.HTTPResource.get(
-                    "https://kolej-lka.pl/pliki/pn0e6eg45qcl4hd5/gtfs-2024-2025/zip/"
-                ),
+                "lka.zip": impuls.LocalResource("out/lka_combined.zip"),
                 "routes.csv": impuls.LocalResource("lka_bus_sanitizer/routes.csv"),
                 "stops.csv": impuls.LocalResource("lka_bus_sanitizer/stops.csv"),
             },
@@ -41,4 +40,5 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
 
 
 def main() -> None:
+    LKACombiner().run()
     LodzkaKolejAglomeracyjnaGTFS().run()
