@@ -67,6 +67,7 @@ Currently it contains:
         - bus routes have no numbering
     - notes:
         - route_id is a concat of fisrt and last stop
+        - for buses stop ids encode route number on second and third digit, written backwards (ex: 1100028 -> 1, 1900032 -> 9, 13100033 -> 13)
         - nr_lini from live is mapped to ~trip_short_name
 1. Polregio
     - source: official
