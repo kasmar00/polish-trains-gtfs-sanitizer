@@ -37,6 +37,7 @@ GTFS_HEADERS: Dict[str, Tuple[str, ...]] = {
         "trip_headsign",
         "trip_short_name",
         "traktion",
+        "shape_id",
     ),
     "stop_times.txt": (
         "trip_id",
@@ -75,6 +76,12 @@ GTFS_HEADERS: Dict[str, Tuple[str, ...]] = {
         "saturday",
         "sunday",
         "start_date",
-        "end_date"
+        "end_date",
+    ),
+    "shapes.txt": (
+        "shape_id",
+        "shape_pt_lat",
+        "shape_pt_lon",
+        "shape_pt_sequence",
     ),
 }
