@@ -8,4 +8,8 @@ out/kml.zip:
 	python3 -m kml_sanitizer -f
 	docker run --rm -v ./out:/work ghcr.io/mobilitydata/gtfs-validator:latest -i /work/kml.zip -o /work/validator-kml
 
-.PHONY: out/kw.zip out/kml.zip
+out/polregio_mkuran.zip:
+	python3 -m polregio_mkuran_sanitizer -f
+	docker run --rm -v ./out:/work ghcr.io/mobilitydata/gtfs-validator:latest -i /work/polregio_mkuran.zip -o /work/validator-pr
+
+.PHONY: out/kw.zip out/kml.zip out/polregio_mkuran.zip
