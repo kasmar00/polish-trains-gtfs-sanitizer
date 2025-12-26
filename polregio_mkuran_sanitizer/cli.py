@@ -5,6 +5,7 @@ import impuls
 import argparse
 from common.extra_resources import NoSSLVerifyHttpResource
 from kw_sanitizer.consts import GTFS_HEADERS
+from polregio_mkuran_sanitizer.load_platforms import LoadPlatformData
 
 
 class PolregioGTFS(impuls.App):
@@ -17,16 +18,23 @@ class PolregioGTFS(impuls.App):
                 CutTrips(),
                 MarkRoutesFromStops(),
                 MarkRoutesFromShortName(),
+                LoadPlatformData(),
+                impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
                 impuls.tasks.SaveGTFS(
                     headers=GTFS_HEADERS, target="out/polregio_mkuran.zip"
                 ),
             ],
             resources={
-                "polregio.zip": NoSSLVerifyHttpResource.get(
-                    # "https://transfer.polregio.pl/public/file/2xpjhbomseoindotgttcsg/GTFS.zip"
-                    "https://cdn.zbiorkom.live/gtfs/pkp-pr.zip"
+                "polregio.zip": impuls.HTTPResource.get(
+                    # "https://cdn.zbiorkom.live/gtfs/pkp-pr.zip"
+                    "https://mkuran.pl/gtfs/polregio.zip"
                 ),
-                # "routes.csv": impuls.LocalResource("polregio_sanitizer/routes.csv"),
+                "platforms.json": impuls.HTTPResource.get(
+                    "https://kasmar00.github.io/osm-plk-platform-validator/platforms-list.json"
+                ),
+                "routes.csv": impuls.LocalResource(
+                    "polregio_mkuran_sanitizer/routes.csv"
+                ),
                 # "stops.csv": impuls.resource.ZippedResource(
                 #     r=impuls.HTTPResource.get("https://mkuran.pl/gtfs/polregio.zip"),
                 #     file_name_in_zip="stops.txt",
@@ -61,7 +69,6 @@ class CutTrips(impuls.Task):
     def execute(self, r):
         with r.db.transaction():
             for trip_id, trip_number in _get_trip_ids(r.db):
-
                 stop_times = list(
                     r.db.typed_out_execute(
                         "SELECT * FROM stop_times WHERE trip_id=?",
@@ -219,7 +226,7 @@ class MarkRoutesFromStops(impuls.Task):
                     ]
                     if len(matching) > 1:
                         self.logger.warning(
-                            f"Trip {trip_number} ({trip_id}) matches routes {[route.id for routes in matching]}"
+                            f"Trip {trip_number} ({trip_id}) matches routes {[route.id for route in matching]}"
                         )
 
                     if len(matching) == 1:
@@ -244,21 +251,27 @@ class MarkRoutesFromStops(impuls.Task):
 
 
 class MarkRoutesFromShortName(impuls.Task):
+    # TODO: handle buses
     routes = {
         "PKM1": "WLKP-PKM1",
         "PKM2": "WLKP-PKM2",
         "PKM3": "WLKP-PKM3",
         "PKM4": "WLKP-PKM4",
+        "PKM5": "WLKP-PKM5",
         "SKA1": "MPOL-SKA1",
         "SKA2": "MPOL-SKA2",
         "SKA3": "MPOL-SKA3",
+        "K2": "MPOL-K2",
         "K22": "MPOL-K22",
+        "K3": "MPOL-K3",
         "K32": "MPOL-K32",
         "K33": "MPOL-K33",
         "K5": "MPOL-K5",
+        "K51": "MPOL-K51",
         "K52": "MPOL-K52",
         "K63": "MPOL-K63",
         "K7": "MPOL-K7",
+        "K71": "MPOL-K71",
         "PKR": "MPOL-PKR",
         "S1": "ZACH-S1",
         "S2": "ZACH-S2",
@@ -281,7 +294,7 @@ class MarkRoutesFromShortName(impuls.Task):
             for trip in r.db.retrieve_all(impuls.model.Trip):
                 name_cut = trip.short_name.split()
                 clear_name = False
-                if len(name_cut)==1:
+                if len(name_cut) == 1:
                     continue
                 else:
                     if "Podkarpacka Kolej Aglomeracyjna" in trip.short_name:
@@ -297,9 +310,11 @@ class MarkRoutesFromShortName(impuls.Task):
                     trip.route_id = route_id
                     if clear_name:
                         trip.short_name = name_cut[0]
-                    else: 
-                        trip.short_name = (name_cut[0] + " " + " ".join(name_cut[2:])).strip()
-                    
+                    else:
+                        trip.short_name = (
+                            name_cut[0] + " " + " ".join(name_cut[2:])
+                        ).strip()
+
                     r.db.update(trip)
 
 

@@ -1,0 +1,25 @@
+route_id,route_short_name,route_long_name,route_color,route_text_color
+WLKP-PKM1,PKM1,Poznańska Kolej Metropolitalna 1,4278BF
+WLKP-PKM2,PKM2,Poznańska Kolej Metropolitalna 2,D43A3B
+WLKP-PKM3,PKM3,Poznańska Kolej Metropolitalna 3,5A8E27
+WLKP-PKM4,PKM4,Poznańska Kolej Metropolitalna 4,6A2f7D
+WLKP-PKM5,PKM5,Poznańska Kolej Metropolitalna 5,E1B94B
+MPOL-SKA1,SKA1,Szybka Kolej Aglomeracyjna 1,60B6F0,FFFFFF
+MPOL-SKA2,SKA2,Szybka Kolej Aglomeracyjna 2,D4328A,FFFFFF
+MPOL-SKA3,SKA3,Szybka Kolej Aglomeracyjna 3,F2C43B,00000
+MPOL-K2,K2,K2,A3897B,FFFFFF
+MPOL-K22,K22,K22,95C11F,00000
+MPOL-K3,K3,K3,E84E0E,FFFFFF
+MPOL-K32,K32,K32,69BFAC,00000
+MPOL-K33,K33,K33,951A80,FFFFFF
+MPOL-K5,K5,K5,F29EC5,FFFFFF
+MPOL-K51,K51,K51,673B10,FFFFFF
+MPOL-K52,K52,K52,BE1721,FFFFFF
+MPOL-K63,K63,K63,4464AC,FFFFFF
+MPOL-K7,K7,K7,008C36,FFFFFF
+MPOL-K71,K71,K71,28235B,FFFFFF
+MPOL-PKR,PKR,Podhalańska Kolej Regionalna,
+ZACH-S1,S1,Szczecińska Kolej Metropolitalna 1,
+ZACH-S2,S2,Szczecińska Kolej Metropolitalna 2,
+ZACH-S3,S3,Szczecińska Kolej Metropolitalna 3,
+PODK-PKA,PKA,Podkarpacka Kolej Aglomeracyjna,04998B,FFFFFF
