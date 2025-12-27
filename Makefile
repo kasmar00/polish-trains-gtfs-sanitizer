@@ -1,4 +1,4 @@
-all: out/kw.zip out/kml.zip
+all: out/kw.zip out/kml.zip out/polregio_mkuran.zip
 
 out/kw.zip:
 	python3 -m kw_sanitizer -f
@@ -10,6 +10,6 @@ out/kml.zip:
 
 out/polregio_mkuran.zip:
 	python3 -m polregio_mkuran_sanitizer -f
-	docker run --rm -v ./out:/work ghcr.io/mobilitydata/gtfs-validator:latest -i /work/polregio_mkuran.zip -o /work/validator-pr
+	docker run --rm -v ./out:/work ghcr.io/mobilitydata/gtfs-validator:latest -i /work/polregio_mkuran.zip -o /work/validator-pr -c PL
 
 .PHONY: out/kw.zip out/kml.zip out/polregio_mkuran.zip

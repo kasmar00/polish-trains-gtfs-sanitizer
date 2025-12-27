@@ -6,6 +6,7 @@ import argparse
 from common.extra_resources import NoSSLVerifyHttpResource
 from kw_sanitizer.consts import GTFS_HEADERS
 from polregio_mkuran_sanitizer.load_platforms import LoadPlatformData
+from common.attribution import CreateFeedAttributions
 
 
 class PolregioGTFS(impuls.App):
@@ -20,13 +21,15 @@ class PolregioGTFS(impuls.App):
                 MarkRoutesFromShortName(),
                 LoadPlatformData(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
+                CreateFeedAttributions(
+                    "PolRegio", "https://polregio.pl/", "polregio.zip"
+                ),
                 impuls.tasks.SaveGTFS(
                     headers=GTFS_HEADERS, target="out/polregio_mkuran.zip"
                 ),
             ],
             resources={
                 "polregio.zip": impuls.HTTPResource.get(
-                    # "https://cdn.zbiorkom.live/gtfs/pkp-pr.zip"
                     "https://mkuran.pl/gtfs/polregio.zip"
                 ),
                 "platforms.json": impuls.HTTPResource.get(
@@ -35,17 +38,6 @@ class PolregioGTFS(impuls.App):
                 "routes.csv": impuls.LocalResource(
                     "polregio_mkuran_sanitizer/routes.csv"
                 ),
-                # "stops.csv": impuls.resource.ZippedResource(
-                #     r=impuls.HTTPResource.get("https://mkuran.pl/gtfs/polregio.zip"),
-                #     file_name_in_zip="stops.txt",
-                # ),
-                # "trips.csv": impuls.resource.ZippedResource(
-                #     r=impuls.HTTPResource.get("https://mkuran.pl/gtfs/polregio.zip"),
-                #     file_name_in_zip="trips.txt",
-                # ),
-                # "platforms.json": impuls.HTTPResource.get(
-                #     "https://kasmar00.github.io/osm-plk-platform-validator/platforms-list.json"
-                # ),
             },
             options=options,
         )
