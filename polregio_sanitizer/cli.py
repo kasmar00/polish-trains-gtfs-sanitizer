@@ -3,9 +3,8 @@ from dataclasses import dataclass
 from typing import Iterable, List, Optional, Tuple, cast
 import impuls
 import argparse
-from common.extra_resources import NoSSLVerifyHttpResource
 from kw_sanitizer.consts import GTFS_HEADERS
-from polregio_mkuran_sanitizer.load_platforms import LoadPlatformData
+from polregio_sanitizer.load_platforms import LoadPlatformData
 from common.attribution import CreateFeedAttributions
 
 
@@ -25,7 +24,7 @@ class PolregioGTFS(impuls.App):
                     "PolRegio", "https://polregio.pl/", "polregio.zip"
                 ),
                 impuls.tasks.SaveGTFS(
-                    headers=GTFS_HEADERS, target="out/polregio_mkuran.zip"
+                    headers=GTFS_HEADERS, target="out/polregio.zip"
                 ),
             ],
             resources={
@@ -36,7 +35,7 @@ class PolregioGTFS(impuls.App):
                     "https://kasmar00.github.io/osm-plk-platform-validator/platforms-list.json"
                 ),
                 "routes.csv": impuls.LocalResource(
-                    "polregio_mkuran_sanitizer/routes.csv"
+                    "polregio_sanitizer/routes.csv"
                 ),
             },
             options=options,
