@@ -80,85 +80,108 @@ class RouteSchema:
 
 
 class MarkRoutesFromStops(impuls.Task):
-    def execute(self, r):
-        routes = [
-            RouteSchema(
-                "TROJ-S2",
-                "S2",
-                "AA2748",
-                [
-                    Variant(
-                        "5900", "257530", "7534"
-                    ),  # Gdynia Główna - Gdańsk Port Lotniczy - Gdańsk Wrzeszcz
-                    Variant(
-                        "7112", "7534", "257530"
-                    ),  # Tczew - Gdańsk Wrzeszcz - Gdańsk Port Lotniczy
-                ],
-            ),
-            RouteSchema("TROJ-R12", "R12", "F4d55A", [Variant("6791", None, None)]),
-            RouteSchema(
-                "TROJ-R22", "R22", "9ACACB", [Variant("264159", "4952", "4705")]
-            ),
-            RouteSchema(
-                "TROJ-R16",
-                "R16",
-                "C97174",
-                [
-                    Variant("3004", "4705", "4705"),  # Szczecinek - Miastko - Słupsk
-                    Variant(
-                        "4705", "4713", "4556"
-                    ),  # Słupsk - KObylnica Słupska - Miastko
-                ],
-            ),
-            RouteSchema(
-                "TROJ-R7",
-                "R7",
-                "A393b4",
-                [
-                    Variant(
-                        "7112", "8607", "15602"
-                    ),  # Tczew - Starogard Gdański - Chojnice
-                    Variant("8607", None, None),  # Starogard Gdański -> Tczew
-                ],
-            ),
-            RouteSchema(
-                "TROJ-31",
-                "R31",
-                "6DA6D3",
-                [
-                    Variant("5900", "7112", "8474"),  # Gdynia Główna - Tczew - Smętowo
-                    Variant(
-                        "6031", "7112", "8474"
-                    ),  # Gdynia Chylonia - Tczew - Smętowo
-                ],
-            ),
-            RouteSchema(
-                "TROJ-14",
-                "R14",
-                "A6ACD6",
-                [
-                    Variant(
-                        "3004", "15594", "15602"
-                    ),  # Szczecinek - Człuchów - Chojnice
-                ],
-            ),
-            RouteSchema(
-                "TROJ-11",
-                "R11",
-                "D87D29",
-                [
-                    Variant(
-                        "18002", "257542", "7534"
-                    ),  # Kartuzy - Gdańsk Kiełpinek - Gdańsk Wrzeszcz
-                    Variant(
-                        "18002", "257542", "7500"
-                    ),  # Kartuzy - Gdańsk Kiełpinek - Gdańsk Główny
-                ],
-            ),
-        ]
+    routes = [
+        RouteSchema(
+            "TROJ-S2",
+            "S2",
+            "AA2748",
+            [
+                Variant(
+                    "5900", "257530", "7534"
+                ),  # Gdynia Główna - Gdańsk Port Lotniczy - Gdańsk Wrzeszcz
+                Variant(
+                    "7112", "7534", "257530"
+                ),  # Tczew - Gdańsk Wrzeszcz - Gdańsk Port Lotniczy
+            ],
+        ),
+        RouteSchema(
+            "TROJ-R3",
+            "R3",
+            "90BAE6",
+            [
+                Variant("8151", "5900", "4705"),  # Elbląg - Gdynia Główna - Słupsk
+                Variant("5900", "5447", "4705"),  # Gdynia Główna - Luzino - Słupsk
+                Variant("8151", "5900", "5447"),  # Elbląg - Gdynia Główna - Luzino
+                Variant("7112", "5900", "4705"),  # Tczew - Gdynia Główna - Słupsk
+                Variant("6031", "7112", "8151"),  # Gdynia Chylonia - Tczew - Elbląg
+                Variant("5900", "7112", "8151"),  # Gdynia Główna - Tczew - Elbląg
+                Variant("5900", "7112", "7872"),  # Gdynia Główna - Tczew - Malbork
+                Variant("7872", "7914", "8151"),  # Malbork - Fiszewo - Elbląg
+                Variant("6031", "7112", "7872"),  # Gdynia Chylonia - Tczew - Malbork
+            ],
+        ),
+        RouteSchema(
+            "TROJ-R31",
+            "R31",
+            "6DA6D3",
+            [
+                Variant("5900", "7112", "8474"),  # Gdynia Główna - Tczew - Smętowo
+                Variant("6031", "7112", "8474"),  # Gdynia Chylonia - Tczew - Smętowo
+            ],
+        ),
+        # TODO: R5
+        RouteSchema(
+            "TROJ-R7",
+            "R7",
+            "A393B4",
+            [
+                Variant(
+                    "7112", "8607", "15602"
+                ),  # Tczew - Starogard Gdański - Chojnice
+                Variant("8607", None, None),  # Starogard Gdański -> Tczew
+            ],
+        ),
+        # TODO: R8 (currently ZKA)
+        # TODO: R9 (currently ZKA)
+        RouteSchema(
+            "TROJ-R11",
+            "R11",
+            "D87D29",
+            [
+                Variant(
+                    "18002", "257542", "7534"
+                ),  # Kartuzy - Gdańsk Kiełpinek - Gdańsk Wrzeszcz
+                Variant(
+                    "18002", "257542", "7500"
+                ),  # Kartuzy - Gdańsk Kiełpinek - Gdańsk Główny
+            ],
+        ),
+        RouteSchema("TROJ-R12", "R12", "F4d55A", [Variant("6791", None, None)]),
+        RouteSchema(
+            "TROJ-R13",
+            "R13",
+            "E2ABCC",
+            [
+                Variant("7872", "23101", "20503"),  # Malbork - Kwidzyn - Grudziądz
+                Variant("7872", "8086", "23101"),  # Malbork - Sztum - Kwidzyn
+            ],
+        ),
+        RouteSchema(
+            "TROJ-R14",
+            "R14",
+            "A6ACD6",
+            [
+                Variant("3004", "15594", "15602"),  # Szczecinek - Człuchów - Chojnice
+            ],
+        ),
+        RouteSchema(
+            "TROJ-R16",
+            "R16",
+            "C97174",
+            [
+                Variant("3004", "4705", "4705"),  # Szczecinek - Miastko - Słupsk
+                Variant("4705", "4713", "4556"),  # Słupsk - Kobylnica Słupska - Miastko
+            ],
+        ),
+        #TODO: R17 (currently ZKA)
+        #TODO: R20 - skipped cause it's only three stations out of 10-12
+        RouteSchema("TROJ-R21", "R21", "7CA3BC", [Variant("5355", None, None)]),
+        RouteSchema("TROJ-R22", "R22", "9ACACB", [Variant("264159", "4952", "4705")]),
+    ]
 
+    def execute(self, r):
         with r.db.transaction():
-            for route in routes:
+            for route in self.routes:
                 r.db.create(
                     impuls.model.route.Route(
                         id=route.id,
@@ -171,22 +194,23 @@ class MarkRoutesFromStops(impuls.Task):
                 )
             for trip_id, trip_number in _get_trip_ids(r.db):
                 stops = list(_get_trip_stops(r.db, trip_id))
-                for route in routes:
-                    matching = [
-                        route
-                        for route in routes
-                        if self.route_stops_match(route, stops)
-                    ]
-                    if len(matching) > 1:
-                        self.logger.warning(
-                            f"Trip {trip_number} ({trip_id}) matches routes {[route.id for route in matching]}"
-                        )
+                matching = [
+                    route
+                    for route in self.routes
+                    if self.route_stops_match(route, stops)
+                ]
+                if "91762512" in trip_id:
+                    print("2137", matching, stops)
+                if len(matching) > 1:
+                    self.logger.warning(
+                        f"Trip {trip_number} ({trip_id}) matches routes {[route.id for route in matching]}"
+                    )
 
-                    if len(matching) == 1:
-                        r.db.raw_execute(
-                            "UPDATE trips SET route_id = ? WHERE trip_id = ?",
-                            (matching[0].id, trip_id),
-                        )
+                if len(matching) == 1:
+                    r.db.raw_execute(
+                        "UPDATE trips SET route_id = ? WHERE trip_id = ?",
+                        (matching[0].id, trip_id),
+                    )
 
     def route_stops_match(self, route: RouteSchema, stops: List[str]) -> bool:
         for variant in route.variants:
