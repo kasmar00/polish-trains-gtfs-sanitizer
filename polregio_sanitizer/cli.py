@@ -242,7 +242,6 @@ class MarkRoutesFromStops(impuls.Task):
 
 
 class MarkRoutesFromShortName(impuls.Task):
-    # TODO: handle buses
     routes = {
         "PKM1": "WLKP-PKM1",
         "PKM2": "WLKP-PKM2",
@@ -282,6 +281,15 @@ class MarkRoutesFromShortName(impuls.Task):
                         type=impuls.model.route.Route.Type.RAIL,
                     )
                 )
+                r.db.create(
+                    impuls.model.Route(
+                        id=f"{route_id}_BUS",
+                        agency_id=0,
+                        short_name=route_code,
+                        long_name=route_code,
+                        type=impuls.model.route.Route.Type.BUS,
+                    )
+                )
             for trip in r.db.retrieve_all(impuls.model.Trip):
                 name_cut = trip.short_name.split()
                 clear_name = False
@@ -298,7 +306,10 @@ class MarkRoutesFromShortName(impuls.Task):
                         route_code = name_cut[1]
                 route_id = self.routes.get(route_code)
                 if route_id:
-                    trip.route_id = route_id
+                    if "BUS" in trip.route_id:
+                        trip.route_id = f"{route_id}_BUS"
+                    else:
+                        trip.route_id = route_id
                     if clear_name:
                         trip.short_name = name_cut[0]
                     else:
