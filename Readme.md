@@ -76,12 +76,15 @@ Currently it contains:
             - has platforms(roman)+tracks, but with generic locations
             - each train is it's own route (1:1 between routes and trips)
             - no trip names (ex. `IR Lutynia`, `S3` etc.)
+            - some stops are in really weird locations: Łódź Dąbrowa, Alt Rosenthal
+            - weird stop names: Angermünde => Angermuende, Bobowa Miasto => Bobowa-Miasto, Frankfurt (Oder)=>Frankfurt/Oder
+            - has bikes and wheelchair availability
         - notes:
             - route_short_name: R - Regio, RP - regio fast, IR - interregio
     - source: mkuran
         - url: https://mkuran.pl/gtfs/polregio.zip
         - issues:
-            - no platforms
+            - has platforms and track as non standard column in stop_times
             - no RP 
             - has trip names (ex. Lutynia) but also line names (PKM4, S3, Podkarpacka Kolej Aglomeracyjna), no Pomorska KM
 1. Regio Jet
