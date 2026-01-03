@@ -9,6 +9,8 @@ route_id,route_short_name,route_color,route_long_name
 1300001_1300040,ŁA3,47934A,Brzeziny Głowackiego - Wola Rakowa Szkoła
 1300016_1300001,ŁA3,47934A,Andrespol Centrum Handlowe - Brzeziny Głowackiego
 1300040_1300001,ŁA3,47934A,Wola Rakowa Szkoła - Brzeziny Głowackiego
+1400001_1400030,ŁA4,4D318F,Kazimierz Plac Kościuszki - Pabianice Dworzec PKP
+1400030_1400001,ŁA4,4D318F,Pabianice Dworzec PKP - Kazimierz Plac Kościuszki
 1500034_1500001,ŁA5,306439,Będzelin OSP - Budziszewice Kościół
 1500001_1500034,ŁA5,306439,Budziszewice Kościół - Będzelin OSP
 1600044_1600042,ŁA6,C03021,Leźnica Wielka (Osiedle) - Ozorków Kolejowa  Dw. PKP Ozorków
@@ -35,3 +37,7 @@ route_id,route_short_name,route_color,route_long_name
 12100013_12100001,ŁA12,8A623C,Skrzynki PKP - Buków Świetlica
 13100001_13100033,ŁA13,8D4A93,Zaosie Świetlica - Tomaszów Mazowiecki Dworzec PKP
 13100033_13100001,ŁA13,8D4A93,Tomaszów Mazowiecki Dworzec PKP - Zaosie Świetlica
+13100033_1500001,ŁA13,8D4A93,Tomaszów Mazowiecki Dworzec PKP - Budziszewice Kościół
+1500001_13100033,ŁA13,8D4A93,Budziszewice Kościół - Tomaszów Mazowiecki Dworzec PKP
+1400030_14100001,ŁA14,3F72B9,Pabianice Dworzec PKP - Dłutów Szkoła
+14100001_1400030,ŁA14,3F72B9,Dłutów Szkoła - Pabianice Dworzec PKP
