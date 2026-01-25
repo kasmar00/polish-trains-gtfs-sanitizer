@@ -1,6 +1,7 @@
 import impuls
 import json
 from common.osm_stations import fetch_osm_stations
+from common.slug import slug
 
 class AddPlatforms(impuls.Task):
     def __init__(self, name: str | None = None) -> None:
@@ -37,7 +38,7 @@ class AddPlatforms(impuls.Task):
                 station.lon = lon
                 station.lat = lat
 
-                station_platforms = platforms.get(station.name)
+                station_platforms = platforms.get(slug(station.name))
                 if not station_platforms:
                     self.logger.warning(
                         "Station %s is not in platform list, skipping", station.name

@@ -2,6 +2,8 @@ from typing import Any, Dict, List
 import impuls
 import json
 
+from common.slug import slug
+
 
 class LoadPlatformData(impuls.Task):
     def __init__(self) -> None:
@@ -59,7 +61,7 @@ class LoadPlatformData(impuls.Task):
                 continue
 
             stop_with_platform_id = f"{stop_id}_{platform_number}_{track}"
-            platforms_for_station = platforms.get(str(name), [])
+            platforms_for_station = platforms.get(slug(str(name)), [])
             if len(platforms_for_station) == 0:
                 self.logger.warning(f"Station not found {name}")
                 continue
