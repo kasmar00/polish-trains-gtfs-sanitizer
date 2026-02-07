@@ -4,10 +4,12 @@ import impuls
 
 from common.add_platforms import AddPlatforms
 from common.attribution import CreateFeedAttributions
+from common.routes_from_stops import MarkRoutesFromStops, RouteSchema, Variant
 from kml_sanitizer.apply_platforms_from_headsigns import ApplyPlatformsFromHeadsigns
 from kml_sanitizer.bus_legs import SplitBusLegs
 from kml_sanitizer.normalize_stop_names import NormalizeStopNames
 from kml_sanitizer.normalize_trip_names import NormalizeTripNames
+from kml_sanitizer.routes_from_stops import ROUTES, get_trip_ids_for_ska
 from kw_sanitizer.consts import GTFS_HEADERS
 
 
@@ -19,6 +21,7 @@ class KolejeMalopolskieGTFS(impuls.App):
             tasks=[
                 impuls.tasks.LoadGTFS("kml.zip", extra_fields=True),
                 NormalizeStopNames(),
+                MarkRoutesFromStops(routes=ROUTES, trip_ids_finder = get_trip_ids_for_ska),
                 AddPlatforms(),
                 ApplyPlatformsFromHeadsigns(),
                 impuls.tasks.GenerateTripHeadsign(),

@@ -4,7 +4,8 @@ from kw_sanitizer.consts import GTFS_HEADERS
 from polregio_sanitizer.load_platforms import LoadPlatformData
 from common.attribution import CreateFeedAttributions
 from polregio_sanitizer.routes_from_short_name import MarkRoutesFromShortName
-from polregio_sanitizer.routes_from_stops import CutTrips, MarkRoutesFromStops
+from polregio_sanitizer.routes_from_stops import CutTrips, ROUTES
+from common.routes_from_stops import  MarkRoutesFromStops
 
 
 class PolregioGTFS(impuls.App):
@@ -15,7 +16,7 @@ class PolregioGTFS(impuls.App):
             tasks=[
                 impuls.tasks.LoadGTFS("polregio.zip", extra_fields=True),
                 CutTrips(),
-                MarkRoutesFromStops(),
+                MarkRoutesFromStops(routes=ROUTES),
                 MarkRoutesFromShortName(),
                 LoadPlatformData(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
