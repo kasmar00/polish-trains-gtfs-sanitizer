@@ -15,18 +15,14 @@ class DivideLKARoutes(impuls.Task):
         with r.db.transaction():
 
             # General cleanup
-            r.db.raw_execute(
-                """
+            r.db.raw_execute("""
                     UPDATE agencies
                     SET agency_id = 'LKA'
-                """
-            )
-            r.db.raw_execute(
-                """
+                """)
+            r.db.raw_execute("""
                     UPDATE routes
                     SET agency_id = 'LKA'
-                """
-            )
+                """)
 
             r.db.create(
                 impuls.model.Agency(
@@ -46,7 +42,7 @@ class DivideLKARoutes(impuls.Task):
     def update_route(self, route: impuls.model.Route, r: impuls.TaskRuntime):
         to_drop = False
         if route.type == impuls.model.Route.Type.RAIL:
-            if "1110449" in route.id:
+            if "Rogów Osobowy Wąskotorowy" in route.long_name:
                 # kolej rogowska
                 route.agency_id = "KWRRB"
                 route.short_name = "KWRRB"
@@ -55,8 +51,8 @@ class DivideLKARoutes(impuls.Task):
                 else:
                     to_drop = True
             elif (
-                len(route.id) > 12
-            ):  # bus stop id's are 6 charachters, with an `_` makes the route.id 13 chars
+                route.long_name.count("-") >= 3
+            ):  # Bus stops for ZKA contain a `-` to describe stop location. Two stops plus a connecting `-` in long name make three
                 # rail replacement bus
                 route.type = impuls.model.Route.Type.BUS
                 route.short_name = "ZKA ŁKA"

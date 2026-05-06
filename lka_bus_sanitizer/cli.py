@@ -3,7 +3,9 @@ import argparse
 
 from common.attribution import CreateFeedAttributions
 from kw_sanitizer.consts import GTFS_HEADERS
+from lka_bus_sanitizer.curate_stop_names import CurateStopNames
 from lka_bus_sanitizer.merge_stops import MergeStopsByNameAndCode
+from lka_bus_sanitizer.curate_bus_routes import CurateBusRoutes
 from common.lka_divide import DivideLKARoutes
 from lka_combiner.cli import LKACombiner
 
@@ -21,20 +23,19 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                     operator_url="https://lka.lodzkie.pl/",
                     feed_resource_name="lka.zip",
                 ),
-                impuls.tasks.ModifyStopsFromCSV("stops.csv"),
+                CurateStopNames(),
                 MergeStopsByNameAndCode(),
                 impuls.tasks.ExecuteSQL(
                     "Remove Headsigns", "UPDATE trips SET headsign = '' "
                 ),
                 impuls.tasks.GenerateTripHeadsign(),
                 impuls.tasks.RemoveUnusedEntities(),
-                impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
+                CurateBusRoutes(),
                 impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_bus.zip"),
             ],
             resources={
                 "lka.zip": impuls.LocalResource("out/lka_combined.zip"),
-                "routes.csv": impuls.LocalResource("lka_bus_sanitizer/routes.csv"),
-                "stops.csv": impuls.LocalResource("lka_bus_sanitizer/stops.csv"),
+                "routes_match.csv": impuls.LocalResource("lka_bus_sanitizer/routes_match.csv"),
             },
         )
 

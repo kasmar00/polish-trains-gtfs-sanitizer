@@ -22,13 +22,15 @@ class LodzkaKolejAglomeracyjnaGTFS(impuls.App):
                 ),
                 impuls.tasks.RemoveUnusedEntities(),
                 impuls.tasks.ModifyRoutesFromCSV("routes.csv"),
-                impuls.tasks.ModifyStopsFromCSV("stops.csv"),
+                impuls.tasks.ExecuteSQL(
+                    "Fix Pleszew",
+                    "UPDATE stops SET lat = 51.89250, lon = 17.73247 WHERE name = 'Pleszew' ",
+                ),
                 impuls.tasks.SaveGTFS(headers=GTFS_HEADERS, target="out/lka_train.zip"),
             ],
             resources={
                 "lka.zip": impuls.LocalResource("out/lka_combined.zip"),
                 "routes.csv": impuls.LocalResource("lka_train_sanitizer/routes.csv"),
-                "stops.csv": impuls.LocalResource("lka_train_sanitizer/stops.csv"),
             },
         )
 
