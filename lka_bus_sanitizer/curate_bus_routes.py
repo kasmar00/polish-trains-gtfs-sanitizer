@@ -40,6 +40,10 @@ class CurateBusRoutes(impuls.Task):
                     if len(set([match["id"] for match in candidates]))>1:
                         self.logger.warning(f"Route has more than one matching: {route}, {candidates}")
                         continue
+
+                if len(candidates)==0:
+                    self.logger.error("No routes matching: %s", route)
+                    raise RuntimeError()
                 
                 match = candidates[0]
                 route.color = match["color"]
